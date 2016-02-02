@@ -23,5 +23,5 @@ after_build:
 
 artifacts:
 - path: XwaDatEditor\dist
-  name: XwaDatEditor
+  name: XwaDatEditor-$(APPVEYOR_BUILD_VERSION)
   type: zip
