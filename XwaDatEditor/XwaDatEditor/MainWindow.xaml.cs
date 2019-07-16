@@ -291,7 +291,6 @@ namespace XwaDatEditor
                     try
                     {
                         var image = DatImage.FromFile(group.GroupId, (short)imageId, fileName);
-                        image.ConvertToFormat24();
 
                         group.Images.Add(image);
 
@@ -335,7 +334,6 @@ namespace XwaDatEditor
                 try
                 {
                     image.ReplaceWithFile(fileName);
-                    image.ConvertToFormat24();
 
                     disp(() => this.DatFile = this.DatFile);
                 }
@@ -392,6 +390,23 @@ namespace XwaDatEditor
             this.RunBusyAction(disp =>
             {
                 image.ConvertToFormat24();
+
+                disp(() => this.DatFile = this.DatFile);
+            });
+        }
+
+        private void ConvertImage25_Click(object sender, RoutedEventArgs e)
+        {
+            var image = this.ImagesList.SelectedItem as DatImage;
+
+            if (image == null)
+            {
+                return;
+            }
+
+            this.RunBusyAction(disp =>
+            {
+                image.ConvertToFormat25();
 
                 disp(() => this.DatFile = this.DatFile);
             });

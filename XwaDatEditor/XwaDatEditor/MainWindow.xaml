@@ -105,13 +105,20 @@
                                       Click="ReplaceImage_Click"
                                       IsEnabled="{Binding HasItems, Source={x:Reference ImagesList}}" />
                             <MenuItem Header="Convert to Type 7"
+                                      ToolTip="Format: 8-bit indexed colors and 1-bit alpha, rle compressed.&#x0a;Use: concourse or in-flight."
                                       Click="ConvertImage7_Click"
                                       IsEnabled="{Binding HasItems, Source={x:Reference ImagesList}}" />
                             <MenuItem Header="Convert to Type 23"
+                                      ToolTip="Format: 8-bit indexed colors and 8-bit alpha, rle compressed.&#x0a;Use: concourse."
                                       Click="ConvertImage23_Click"
                                       IsEnabled="{Binding HasItems, Source={x:Reference ImagesList}}" />
                             <MenuItem Header="Convert to Type 24"
+                                      ToolTip="Format: 8-bit indexed colors and 8-bit alpha.&#x0a;Use: in-flight."
                                       Click="ConvertImage24_Click"
+                                      IsEnabled="{Binding HasItems, Source={x:Reference ImagesList}}" />
+                            <MenuItem Header="Convert to Type 25"
+                                      ToolTip="Format: 32-bit ARGB.&#x0a;Use: in-flight."
+                                      Click="ConvertImage25_Click"
                                       IsEnabled="{Binding HasItems, Source={x:Reference ImagesList}}" />
                             <MenuItem Header="Save As..."
                                       Click="SaveImage_Click"
@@ -169,9 +176,10 @@
                                  BandIndex="0"
                                  IsEnabled="{Binding ElementName=ImagesList, Path=HasItems}">
                             <TextBlock Text="Convert to Format...:" />
-                            <Button Click="ConvertImage7_Click">7</Button>
-                            <Button Click="ConvertImage23_Click">23</Button>
-                            <Button Click="ConvertImage24_Click">24</Button>
+                            <Button Click="ConvertImage7_Click" ToolTip="Format: 8-bit indexed colors and 1-bit alpha, rle compressed.&#x0a;Use: concourse or in-flight.">7</Button>
+                            <Button Click="ConvertImage23_Click" ToolTip="Format: 8-bit indexed colors and 8-bit alpha, rle compressed.&#x0a;Use: concourse.">23</Button>
+                            <Button Click="ConvertImage24_Click" ToolTip="Format: 8-bit indexed colors and 8-bit alpha.&#x0a;Use: in-flight.">24</Button>
+                            <Button Click="ConvertImage25_Click" ToolTip="Format: 32-bit ARGB.&#x0a;Use: in-flight.">25</Button>
                         </ToolBar>
                     </ToolBarTray>
                     <Grid DockPanel.Dock="Bottom">
