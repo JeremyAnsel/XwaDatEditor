@@ -83,6 +83,7 @@
     </Compile>
     <Compile Include="BaseConverter.cs" />
     <Compile Include="ImageConverter.cs" />
+    <Compile Include="ItemIndexConverter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -47,6 +47,22 @@ namespace XwaDatEditor
             }
         }
 
+        private void UpdateDatFile()
+        {
+            var groupIndex = this.GroupsList.SelectedIndex;
+            var images = this.ImagesList.SelectedItems.Cast<DatImage>().ToList();
+
+            this.DatFile = this.DatFile;
+
+            this.GroupsList.SelectedIndex = groupIndex;
+            this.ImagesList.SelectedItems.Clear();
+
+            foreach (DatImage image in images)
+            {
+                this.ImagesList.SelectedItems.Add(image);
+            }
+        }
+
         private void RunBusyAction(Action action)
         {
             this.RunBusyAction(dispatcher => action());
@@ -222,20 +238,76 @@ namespace XwaDatEditor
                 return;
             }
 
-            int index = this.GroupsList.SelectedIndex;
-
-            if (index == -1)
+            if (this.GroupsList.SelectedIndex == -1)
             {
                 return;
             }
 
+            var items = this.GroupsList.SelectedItems;
+
             this.RunBusyAction(disp =>
                 {
-                    dat.Groups.RemoveAt(index);
+                    foreach (DatGroup item in items)
+                    {
+                        dat.Groups.Remove(item);
+                    }
 
                     disp(() => this.GroupsList.SelectedIndex = -1);
                     disp(() => this.DatFile = dat);
                 });
+        }
+
+        private void SaveGroupDat_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.GroupsList.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            var dialog = new SaveFileDialog();
+            dialog.AddExtension = true;
+            dialog.DefaultExt = ".dat";
+            dialog.Filter = "DAT files (*.dat)|*.dat";
+
+            string fileName;
+
+            if (dialog.ShowDialog(this) == true)
+            {
+                fileName = dialog.FileName;
+            }
+            else
+            {
+                return;
+            }
+
+            var groups = this.GroupsList.SelectedItems;
+
+            this.RunBusyAction(disp =>
+            {
+                var dat = new DatFile();
+
+                foreach (DatGroup group in groups)
+                {
+                    var datGroup = new DatGroup(group.GroupId);
+                    dat.Groups.Add(datGroup);
+
+                    foreach (DatImage image in group.Images)
+                    {
+                        DatImage datImage = DatImage.FromMemory(
+                            image.GroupId,
+                            image.ImageId,
+                            image.Format,
+                            image.Width,
+                            image.Height,
+                            image.ColorsCount,
+                            image.GetRawData());
+
+                        datGroup.Images.Add(datImage);
+                    }
+                }
+
+                dat.Save(fileName);
+            });
         }
 
         private void NewImage_Click(object sender, RoutedEventArgs e)
@@ -346,69 +418,82 @@ namespace XwaDatEditor
 
         private void ConvertImage7_Click(object sender, RoutedEventArgs e)
         {
-            var image = this.ImagesList.SelectedItem as DatImage;
-
-            if (image == null)
+            if (this.ImagesList.SelectedIndex == -1)
             {
                 return;
             }
 
+            var images = this.ImagesList.SelectedItems;
+
             this.RunBusyAction(disp =>
                 {
-                    image.ConvertToFormat7();
+                    foreach (DatImage image in images)
+                    {
+                        image.ConvertToFormat7();
+                    }
 
-                    disp(() => this.DatFile = this.DatFile);
+                    disp(() => this.UpdateDatFile());
                 });
         }
 
         private void ConvertImage23_Click(object sender, RoutedEventArgs e)
         {
-            var image = this.ImagesList.SelectedItem as DatImage;
-
-            if (image == null)
+            if (this.ImagesList.SelectedIndex == -1)
             {
                 return;
             }
 
+            var images = this.ImagesList.SelectedItems;
+
             this.RunBusyAction(disp =>
             {
-                image.ConvertToFormat23();
+                foreach (DatImage image in images)
+                {
+                    image.ConvertToFormat23();
+                }
 
-                disp(() => this.DatFile = this.DatFile);
+                disp(() => this.UpdateDatFile());
             });
         }
 
         private void ConvertImage24_Click(object sender, RoutedEventArgs e)
         {
-            var image = this.ImagesList.SelectedItem as DatImage;
-
-            if (image == null)
+            if (this.ImagesList.SelectedIndex == -1)
             {
                 return;
             }
 
+            var images = this.ImagesList.SelectedItems;
+
             this.RunBusyAction(disp =>
             {
-                image.ConvertToFormat24();
+                foreach (DatImage image in images)
+                {
+                    image.ConvertToFormat24();
+                }
 
-                disp(() => this.DatFile = this.DatFile);
+                disp(() => this.UpdateDatFile());
             });
         }
 
         private void ConvertImage25_Click(object sender, RoutedEventArgs e)
         {
-            var image = this.ImagesList.SelectedItem as DatImage;
 
-            if (image == null)
+            if (this.ImagesList.SelectedIndex == -1)
             {
                 return;
             }
 
+            var images = this.ImagesList.SelectedItems;
+
             this.RunBusyAction(disp =>
             {
-                image.ConvertToFormat25();
+                foreach (DatImage image in images)
+                {
+                    image.ConvertToFormat25();
+                }
 
-                disp(() => this.DatFile = this.DatFile);
+                disp(() => this.UpdateDatFile());
             });
         }
 
@@ -421,16 +506,19 @@ namespace XwaDatEditor
                 return;
             }
 
-            int index = this.ImagesList.SelectedIndex;
-
-            if (index == -1)
+            if (this.ImagesList.SelectedIndex == -1)
             {
                 return;
             }
 
+            var items = this.ImagesList.SelectedItems;
+
             this.RunBusyAction(disp =>
             {
-                group.Images.RemoveAt(index);
+                foreach (DatImage item in items)
+                {
+                    group.Images.Remove(item);
+                }
 
                 disp(() => this.ImagesList.SelectedIndex = -1);
                 disp(() => this.DatFile = this.DatFile);
@@ -467,6 +555,58 @@ namespace XwaDatEditor
                 {
                     image.Save(fileName);
                 });
+        }
+
+        private void SaveImageDat_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.GroupsList.SelectedIndex == -1 || this.ImagesList.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            var group = (DatGroup)this.GroupsList.SelectedItem;
+
+            var dialog = new SaveFileDialog();
+            dialog.AddExtension = true;
+            dialog.DefaultExt = ".dat";
+            dialog.Filter = "DAT files (*.dat)|*.dat";
+            dialog.FileName = group.GroupId.ToString();
+
+            string fileName;
+
+            if (dialog.ShowDialog(this) == true)
+            {
+                fileName = dialog.FileName;
+            }
+            else
+            {
+                return;
+            }
+
+            var images = this.ImagesList.SelectedItems;
+
+            this.RunBusyAction(disp =>
+            {
+                var dat = new DatFile();
+                var datGroup = new DatGroup(group.GroupId);
+                dat.Groups.Add(datGroup);
+
+                foreach (DatImage image in images)
+                {
+                    DatImage datImage = DatImage.FromMemory(
+                        image.GroupId,
+                        image.ImageId,
+                        image.Format,
+                        image.Width,
+                        image.Height,
+                        image.ColorsCount,
+                        image.GetRawData());
+
+                    datGroup.Images.Add(datImage);
+                }
+
+                dat.Save(fileName);
+            });
         }
 
         private void SetImageColorKey_Click(object sender, RoutedEventArgs e)

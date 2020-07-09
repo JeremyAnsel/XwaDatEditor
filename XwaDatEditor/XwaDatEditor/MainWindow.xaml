@@ -5,7 +5,7 @@
         xmlns:local="clr-namespace:XwaDatEditor"
         Title="{Binding DatFile.FileName, StringFormat='Xwa Dat Editor {0}'}"
         Height="500"
-        Width="800"
+        Width="850"
         UseLayoutRounding="True">
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.New"
@@ -32,7 +32,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="120" />
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="300" />
+                    <ColumnDefinition Width="330" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
@@ -63,9 +63,10 @@
                             <Button Click="AddGroup_Click">: Add</Button>
                         </ToolBar>
                         <ToolBar Band="1"
-                                 BandIndex="0">
-                            <Button Click="DeleteGroup_Click"
-                                    IsEnabled="{Binding ElementName=GroupsList, Path=HasItems}">Delete</Button>
+                                 BandIndex="0"
+                                 IsEnabled="{Binding ElementName=GroupsList, Path=HasItems}">
+                            <Button Click="DeleteGroup_Click">Delete</Button>
+                            <Button Click="SaveGroupDat_Click">Save DAT...</Button>
                         </ToolBar>
                     </ToolBarTray>
                     <Grid DockPanel.Dock="Bottom">
@@ -80,7 +81,6 @@
                     </Grid>
                     <ListView x:Name="GroupsList"
                               Grid.Column="0"
-                              SelectionMode="Single"
                               ItemsSource="{Binding DatFile.Groups}"
                               IsSynchronizedWithCurrentItem="True"
                               VirtualizingPanel.IsVirtualizing="True"
@@ -171,6 +171,7 @@
                                  IsEnabled="{Binding ElementName=ImagesList, Path=HasItems}">
                             <Button Click="DeleteImage_Click">Delete</Button>
                             <Button Click="SaveImage_Click">Save As...</Button>
+                            <Button Click="SaveImageDat_Click">Save DAT...</Button>
                         </ToolBar>
                         <ToolBar Band="4"
                                  BandIndex="0"
@@ -219,7 +220,6 @@
                                  Text="{Binding DatFile.Groups/Images/OffsetY, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
                     <ListView x:Name="ImagesList"
-                              SelectionMode="Single"
                               ItemsSource="{Binding DatFile.Groups/Images}"
                               IsSynchronizedWithCurrentItem="True"
                               VirtualizingPanel.IsVirtualizing="True"
@@ -227,6 +227,22 @@
                               ContextMenu="{StaticResource ImagesContextMenu}">
                         <ListView.View>
                             <GridView>
+                                <GridViewColumn Header="#"
+                                        Width="25">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <Binding>
+                                                        <Binding.Converter>
+                                                            <local:ItemIndexConverter DataContext="{Binding Source={x:Reference ImagesList}, Path=ItemsSource}" />
+                                                        </Binding.Converter>
+                                                    </Binding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
                                 <GridViewColumn Header="Id"
                                                 Width="70">
                                     <GridViewColumn.CellTemplate>
