@@ -229,6 +229,93 @@ namespace XwaDatEditor
                 });
         }
 
+        private void UpGroup_Click(object sender, RoutedEventArgs e)
+        {
+            var dat = this.DatFile;
+
+            if (dat == null)
+            {
+                return;
+            }
+
+            int groupIndex = this.GroupsList.SelectedIndex;
+
+            if (groupIndex == -1 || groupIndex == 0)
+            {
+                return;
+            }
+
+            this.RunBusyAction(disp =>
+            {
+                var group = dat.Groups[groupIndex];
+
+                dat.Groups.RemoveAt(groupIndex);
+                dat.Groups.Insert(groupIndex - 1, group);
+
+                disp(() => this.GroupsList.SelectedIndex = -1);
+                disp(() => this.DatFile = dat);
+                disp(() => this.GroupsList.SelectedItem = group);
+            });
+        }
+
+        private void DownGroup_Click(object sender, RoutedEventArgs e)
+        {
+            var dat = this.DatFile;
+
+            if (dat == null)
+            {
+                return;
+            }
+
+            int groupIndex = this.GroupsList.SelectedIndex;
+
+            if (groupIndex == -1 || groupIndex == dat.Groups.Count - 1)
+            {
+                return;
+            }
+
+            this.RunBusyAction(disp =>
+            {
+                var group = dat.Groups[groupIndex];
+
+                dat.Groups.RemoveAt(groupIndex);
+                dat.Groups.Insert(groupIndex + 1, group);
+
+                disp(() => this.GroupsList.SelectedIndex = -1);
+                disp(() => this.DatFile = dat);
+                disp(() => this.GroupsList.SelectedItem = group);
+            });
+        }
+
+        private void SortGroup_Click(object sender, RoutedEventArgs e)
+        {
+            var dat = this.DatFile;
+
+            if (dat == null)
+            {
+                return;
+            }
+
+            var groups = this.GroupsList.SelectedItems.Cast<DatGroup>().ToList();
+
+            this.RunBusyAction(disp =>
+            {
+                var orderedGroups = dat.Groups
+                    .OrderBy(t => t.GroupId)
+                    .ToList();
+
+                dat.Groups.Clear();
+
+                foreach (var group in orderedGroups)
+                {
+                    dat.Groups.Add(group);
+                }
+
+                disp(() => this.GroupsList.SelectedIndex = -1);
+                disp(() => this.DatFile = dat);
+            });
+        }
+
         private void DeleteGroup_Click(object sender, RoutedEventArgs e)
         {
             var dat = this.DatFile;
@@ -478,7 +565,6 @@ namespace XwaDatEditor
 
         private void ConvertImage25_Click(object sender, RoutedEventArgs e)
         {
-
             if (this.ImagesList.SelectedIndex == -1)
             {
                 return;
@@ -494,6 +580,112 @@ namespace XwaDatEditor
                 }
 
                 disp(() => this.UpdateDatFile());
+            });
+        }
+
+        private void UpImage_Click(object sender, RoutedEventArgs e)
+        {
+            var dat = this.DatFile;
+
+            if (dat == null)
+            {
+                return;
+            }
+
+            var group = this.GroupsList.SelectedItem as DatGroup;
+
+            if (group == null)
+            {
+                return;
+            }
+
+            int imageIndex = this.ImagesList.SelectedIndex;
+
+            if (imageIndex == -1 || imageIndex == 0)
+            {
+                return;
+            }
+
+            this.RunBusyAction(disp =>
+            {
+                var image = group.Images[imageIndex];
+
+                group.Images.RemoveAt(imageIndex);
+                group.Images.Insert(imageIndex - 1, image);
+
+                disp(() => this.ImagesList.SelectedIndex = -1);
+                disp(() => this.DatFile = dat);
+                disp(() => this.ImagesList.SelectedItem = image);
+            });
+        }
+
+        private void DownImage_Click(object sender, RoutedEventArgs e)
+        {
+            var dat = this.DatFile;
+
+            if (dat == null)
+            {
+                return;
+            }
+
+            var group = this.GroupsList.SelectedItem as DatGroup;
+
+            if (group == null)
+            {
+                return;
+            }
+
+            int imageIndex = this.ImagesList.SelectedIndex;
+
+            if (imageIndex == -1 || imageIndex == group.Images.Count - 1)
+            {
+                return;
+            }
+
+            this.RunBusyAction(disp =>
+            {
+                var image = group.Images[imageIndex];
+                group.Images.RemoveAt(imageIndex);
+                group.Images.Insert(imageIndex + 1, image);
+
+                disp(() => this.ImagesList.SelectedIndex = -1);
+                disp(() => this.DatFile = dat);
+                disp(() => this.ImagesList.SelectedItem = image);
+            });
+        }
+
+        private void SortImage_Click(object sender, RoutedEventArgs e)
+        {
+            var dat = this.DatFile;
+
+            if (dat == null)
+            {
+                return;
+            }
+
+            var group = this.GroupsList.SelectedItem as DatGroup;
+
+            if (group == null)
+            {
+                return;
+            }
+
+            this.RunBusyAction(disp =>
+            {
+                var orderedImages = group.Images
+                    .OrderBy(t => t.GroupId)
+                    .ThenBy(t => t.ImageId)
+                    .ToList();
+
+                group.Images.Clear();
+
+                foreach (var image in orderedImages)
+                {
+                    group.Images.Add(image);
+                }
+
+                disp(() => this.ImagesList.SelectedIndex = -1);
+                disp(() => this.DatFile = dat);
             });
         }
 
