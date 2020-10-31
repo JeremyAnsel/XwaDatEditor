@@ -43,12 +43,12 @@
     <AssemblyOriginatorKeyFile>Properties\sgKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="JeremyAnsel.ColorQuant, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a5c614433db515df, processorArchitecture=MSIL">
-      <HintPath>..\packages\JeremyAnsel.ColorQuant.1.0.55\lib\net40\JeremyAnsel.ColorQuant.dll</HintPath>
+    <Reference Include="JeremyAnsel.ColorQuant, Version=2.0.65.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\JeremyAnsel.ColorQuant.2.0.65\lib\net40\JeremyAnsel.ColorQuant.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="JeremyAnsel.Xwa.Dat, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0ff918139331cc37, processorArchitecture=MSIL">
-      <HintPath>..\packages\JeremyAnsel.Xwa.Dat.1.0.4\lib\net40\JeremyAnsel.Xwa.Dat.dll</HintPath>
+    <Reference Include="JeremyAnsel.Xwa.Dat, Version=2.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\JeremyAnsel.Xwa.Dat.2.0.7\lib\net40\JeremyAnsel.Xwa.Dat.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
