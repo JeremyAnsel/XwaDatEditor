@@ -431,14 +431,9 @@ namespace XwaDatEditor
             dialog.CheckFileExists = true;
             dialog.DefaultExt = ".png";
             dialog.Filter = "Images (*.png, *.bmp, *.jpg)|*.png;*.bmp;*.jpg|PNG files (*.png)|*.png|BMP files (*.bmp)|*.bmp|JPG files (*.jpg)|*.jpg";
+            dialog.Multiselect = true;
 
-            string fileName;
-
-            if (dialog.ShowDialog(this) == true)
-            {
-                fileName = dialog.FileName;
-            }
-            else
+            if (dialog.ShowDialog(this) == false)
             {
                 return;
             }
@@ -449,10 +444,12 @@ namespace XwaDatEditor
                 {
                     try
                     {
-                        var image = DatImage.FromFile(group.GroupId, (short)imageId, fileName);
+                        for (int i = 0; i < dialog.FileNames.Length; i++)
+                        {
+                            var image = DatImage.FromFile(group.GroupId, (short)(imageId + i), dialog.FileNames[i]);
 
-                        group.Images.Add(image);
-
+                            group.Images.Add(image);
+                        }
                         disp(() => this.DatFile = this.DatFile);
                         disp(() => this.ImagesList.SelectedIndex = this.ImagesList.Items.Count - 1);
                     }
