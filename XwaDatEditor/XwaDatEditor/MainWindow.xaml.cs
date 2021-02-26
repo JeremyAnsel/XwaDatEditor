@@ -716,24 +716,27 @@ namespace XwaDatEditor
 
         private void SaveImage_Click(object sender, RoutedEventArgs e)
         {
-            var image = this.ImagesList.SelectedItem as DatImage;
+            var images = this.ImagesList.SelectedItems;
 
-            if (image == null)
+            if (images.Count == 0)
             {
                 return;
             }
 
+            DatImage image = images[0] as DatImage;
             var dialog = new SaveFileDialog();
             dialog.AddExtension = true;
             dialog.DefaultExt = ".png";
             dialog.Filter = "Images (*.png, *.bmp)|*.png;*.bmp|PNG files (*.png)|*.png|BMP files (*.bmp)|*.bmp";
             dialog.FileName = image.GroupId + "-" + image.ImageId;
 
-            string fileName;
+            string fileName, directory, extension;
 
             if (dialog.ShowDialog(this) == true)
             {
                 fileName = dialog.FileName;
+                directory = fileName.Substring(0, fileName.LastIndexOf('\\'));
+                extension = fileName.Substring(fileName.LastIndexOf('.'));
             }
             else
             {
@@ -742,7 +745,10 @@ namespace XwaDatEditor
 
             this.RunBusyAction(disp =>
                 {
-                    image.Save(fileName);
+                    foreach (DatImage img in images)
+                    {
+                        img.Save(directory + '\\' + img.GroupId + "-" + img.ImageId + extension);
+                    }
                 });
         }
 
