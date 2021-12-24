@@ -316,6 +316,66 @@ namespace XwaDatEditor
             });
         }
 
+        private void ConvertAllImage7_Click(object sender, RoutedEventArgs e)
+        {
+            DatFile dat = this.DatFile;
+
+            this.RunBusyAction(disp =>
+            {
+                dat.ConvertToFormat7();
+
+                disp(() => this.UpdateDatFile());
+            });
+        }
+
+        private void ConvertAllImage23_Click(object sender, RoutedEventArgs e)
+        {
+            DatFile dat = this.DatFile;
+
+            this.RunBusyAction(disp =>
+            {
+                dat.ConvertToFormat23();
+
+                disp(() => this.UpdateDatFile());
+            });
+        }
+
+        private void ConvertAllImage24_Click(object sender, RoutedEventArgs e)
+        {
+            DatFile dat = this.DatFile;
+
+            this.RunBusyAction(disp =>
+            {
+                dat.ConvertToFormat24();
+
+                disp(() => this.UpdateDatFile());
+            });
+        }
+
+        private void ConvertAllImage25_Click(object sender, RoutedEventArgs e)
+        {
+            DatFile dat = this.DatFile;
+
+            this.RunBusyAction(disp =>
+            {
+                dat.ConvertToFormat25();
+
+                disp(() => this.UpdateDatFile());
+            });
+        }
+
+        private void ConvertAllImage25C_Click(object sender, RoutedEventArgs e)
+        {
+            DatFile dat = this.DatFile;
+
+            this.RunBusyAction(disp =>
+            {
+                dat.ConvertToFormat25Compressed();
+
+                disp(() => this.UpdateDatFile());
+            });
+        }
+
         private void DeleteGroup_Click(object sender, RoutedEventArgs e)
         {
             var dat = this.DatFile;
@@ -511,10 +571,10 @@ namespace XwaDatEditor
 
             this.RunBusyAction(disp =>
                 {
-                    foreach (DatImage image in images)
-                    {
-                        image.ConvertToFormat7();
-                    }
+                    images
+                    .Cast<DatImage>()
+                    .AsParallel()
+                    .ForAll(image => image.ConvertToFormat7());
 
                     disp(() => this.UpdateDatFile());
                 });
@@ -531,10 +591,10 @@ namespace XwaDatEditor
 
             this.RunBusyAction(disp =>
             {
-                foreach (DatImage image in images)
-                {
-                    image.ConvertToFormat23();
-                }
+                images
+                .Cast<DatImage>()
+                .AsParallel()
+                .ForAll(image => image.ConvertToFormat23());
 
                 disp(() => this.UpdateDatFile());
             });
@@ -551,10 +611,10 @@ namespace XwaDatEditor
 
             this.RunBusyAction(disp =>
             {
-                foreach (DatImage image in images)
-                {
-                    image.ConvertToFormat24();
-                }
+                images
+                .Cast<DatImage>()
+                .AsParallel()
+                .ForAll(image => image.ConvertToFormat24());
 
                 disp(() => this.UpdateDatFile());
             });
@@ -571,10 +631,30 @@ namespace XwaDatEditor
 
             this.RunBusyAction(disp =>
             {
-                foreach (DatImage image in images)
-                {
-                    image.ConvertToFormat25();
-                }
+                images
+                .Cast<DatImage>()
+                .AsParallel()
+                .ForAll(image => image.ConvertToFormat25());
+
+                disp(() => this.UpdateDatFile());
+            });
+        }
+
+        private void ConvertImage25C_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ImagesList.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            var images = this.ImagesList.SelectedItems;
+
+            this.RunBusyAction(disp =>
+            {
+                images
+                .Cast<DatImage>()
+                .AsParallel()
+                .ForAll(image => image.ConvertToFormat25Compressed());
 
                 disp(() => this.UpdateDatFile());
             });

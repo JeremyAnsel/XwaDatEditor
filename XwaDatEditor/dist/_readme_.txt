@@ -23,3 +23,7 @@ Use: in-flight.
 - Format 25:
 Format: 32-bit ARGB.
 Use: in-flight.
+
+- Format 25 C:
+Format: 32-bit ARGB compressed with the LZMA algorithm.
+Use: in-flight.

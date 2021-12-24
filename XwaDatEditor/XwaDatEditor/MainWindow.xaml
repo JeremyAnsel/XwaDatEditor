@@ -30,7 +30,7 @@
             </ToolBar>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="190" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="330" />
                     <ColumnDefinition Width="Auto" />
@@ -72,6 +72,16 @@
                         <ToolBar Band="2"
                                  BandIndex="0"
                                  IsEnabled="{Binding ElementName=GroupsList, Path=HasItems}">
+                            <TextBlock Text="Convert all:" />
+                            <Button Click="ConvertAllImage7_Click" ToolTip="Format: 8-bit indexed colors and 1-bit alpha, rle compressed.&#x0a;Use: concourse or in-flight.">7</Button>
+                            <Button Click="ConvertAllImage23_Click" ToolTip="Format: 8-bit indexed colors and 8-bit alpha, rle compressed.&#x0a;Use: concourse.">23</Button>
+                            <Button Click="ConvertAllImage24_Click" ToolTip="Format: 8-bit indexed colors and 8-bit alpha.&#x0a;Use: in-flight.">24</Button>
+                            <Button Click="ConvertAllImage25_Click" ToolTip="Format: 32-bit ARGB.&#x0a;Use: in-flight.">25</Button>
+                            <Button Click="ConvertAllImage25C_Click" ToolTip="Format: 32-bit ARGB, LZMA compressed.&#x0a;Use: in-flight.">25C</Button>
+                        </ToolBar>
+                        <ToolBar Band="3"
+                                 BandIndex="0"
+                                 IsEnabled="{Binding ElementName=GroupsList, Path=HasItems}">
                             <Button Click="DeleteGroup_Click">Delete</Button>
                             <Button Click="SaveGroupDat_Click">Save DAT...</Button>
                         </ToolBar>
@@ -101,6 +111,9 @@
                                 <GridViewColumn Header="Count"
                                                 Width="40"
                                                 DisplayMemberBinding="{Binding Images.Count}" />
+                                <GridViewColumn Header="Format"
+                                                Width="70"
+                                                DisplayMemberBinding="{Binding Format}" />
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -190,11 +203,12 @@
                         <ToolBar Band="4"
                                  BandIndex="0"
                                  IsEnabled="{Binding ElementName=ImagesList, Path=HasItems}">
-                            <TextBlock Text="Convert to Format...:" />
+                            <TextBlock Text="Convert:" />
                             <Button Click="ConvertImage7_Click" ToolTip="Format: 8-bit indexed colors and 1-bit alpha, rle compressed.&#x0a;Use: concourse or in-flight.">7</Button>
                             <Button Click="ConvertImage23_Click" ToolTip="Format: 8-bit indexed colors and 8-bit alpha, rle compressed.&#x0a;Use: concourse.">23</Button>
                             <Button Click="ConvertImage24_Click" ToolTip="Format: 8-bit indexed colors and 8-bit alpha.&#x0a;Use: in-flight.">24</Button>
                             <Button Click="ConvertImage25_Click" ToolTip="Format: 32-bit ARGB.&#x0a;Use: in-flight.">25</Button>
+                            <Button Click="ConvertImage25C_Click" ToolTip="Format: 32-bit ARGB, LZMA compressed.&#x0a;Use: in-flight.">25C</Button>
                         </ToolBar>
                     </ToolBarTray>
                     <Grid DockPanel.Dock="Bottom">
@@ -270,7 +284,7 @@
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Header="Format"
-                                                Width="70"
+                                                Width="80"
                                                 DisplayMemberBinding="{Binding Format}" />
                                 <GridViewColumn Header="Size"
                                                 Width="60">
