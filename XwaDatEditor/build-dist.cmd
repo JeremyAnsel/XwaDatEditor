@@ -4,17 +4,17 @@ setlocal
 cd "%~dp0"
 
 For %%a in (
-"XwaDatEditor\bin\Release\*.dll"
-"XwaDatEditor\bin\Release\*.exe"
-"XwaDatEditor\bin\Release\*.config"
+"XwaDatEditor\bin\Release\net48\*.dll"
+"XwaDatEditor\bin\Release\net48\*.exe"
+"XwaDatEditor\bin\Release\net48\*.config"
 ) do (
 xcopy /s /d "%%~a" dist\
 )
 
 For %%a in (
-"XwaDatExplorer\bin\Release\*.dll"
-"XwaDatExplorer\bin\Release\*.exe"
-"XwaDatExplorer\bin\Release\*.config"
+"XwaDatExplorer\bin\Release\net48\*.dll"
+"XwaDatExplorer\bin\Release\net48\*.exe"
+"XwaDatExplorer\bin\Release\net48\*.config"
 ) do (
 xcopy /s /d "%%~a" dist\
 )
