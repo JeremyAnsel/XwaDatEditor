@@ -504,12 +504,18 @@ namespace XwaDatEditor
                 {
                     try
                     {
-                        for (int i = 0; i < dialog.FileNames.Length; i++)
-                        {
-                            var image = DatImage.FromFile(group.GroupId, (short)(imageId + i), dialog.FileNames[i]);
+                        var images = Enumerable.Range(0, dialog.FileNames.Length)
+                        .Select(i => Tuple.Create(i, dialog.FileNames[i]))
+                        .AsParallel()
+                        .AsOrdered()
+                        .Select(t => DatImage.FromFile(group.GroupId, (short)(imageId + t.Item1), t.Item2))
+                        .AsSequential();
 
+                        foreach (var image in images)
+                        {
                             group.Images.Add(image);
                         }
+
                         disp(() => this.DatFile = this.DatFile);
                         disp(() => this.ImagesList.SelectedIndex = this.ImagesList.Items.Count - 1);
                     }
