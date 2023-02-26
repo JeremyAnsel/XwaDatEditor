@@ -970,7 +970,7 @@ namespace XwaDatEditor
             this.DatImageColorKey1.SelectedColor = color;
         }
 
-        private void GroupId_TextChanged(object sender, TextChangedEventArgs e)
+        private void GroupId_TextChanged(object sender, RoutedEventArgs e)
         {
             var textbox = (TextBox)sender;
 
@@ -989,7 +989,7 @@ namespace XwaDatEditor
             selectedItems.ForEach(t => this.ImagesList.SelectedItems.Add(t));
         }
 
-        private void OffsetX_TextChanged(object sender, TextChangedEventArgs e)
+        private void OffsetX_TextChanged(object sender, RoutedEventArgs e)
         {
             var textbox = (TextBox)sender;
 
@@ -1008,7 +1008,7 @@ namespace XwaDatEditor
             selectedItems.ForEach(t => this.ImagesList.SelectedItems.Add(t));
         }
 
-        private void OffsetY_TextChanged(object sender, TextChangedEventArgs e)
+        private void OffsetY_TextChanged(object sender, RoutedEventArgs e)
         {
             var textbox = (TextBox)sender;
 
