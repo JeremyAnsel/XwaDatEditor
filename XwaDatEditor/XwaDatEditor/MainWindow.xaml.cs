@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -967,6 +968,63 @@ namespace XwaDatEditor
             this.DatImageColorKey.SelectedColor = color;
             this.DatImageColorKey0.SelectedColor = color;
             this.DatImageColorKey1.SelectedColor = color;
+        }
+
+        private void GroupId_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textbox = (TextBox)sender;
+
+            if (!short.TryParse(textbox.Text, NumberStyles.Integer, CultureInfo.InvariantCulture, out short groupId))
+            {
+                return;
+            }
+
+            foreach (DatImage image in this.ImagesList.SelectedItems)
+            {
+                image.GroupId = groupId;
+            }
+
+            var selectedItems = this.ImagesList.SelectedItems.Cast<DatImage>().ToList();
+            this.ImagesList.Items.Refresh();
+            selectedItems.ForEach(t => this.ImagesList.SelectedItems.Add(t));
+        }
+
+        private void OffsetX_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textbox = (TextBox)sender;
+
+            if (!int.TryParse(textbox.Text, NumberStyles.Integer, CultureInfo.InvariantCulture, out int offsetX))
+            {
+                return;
+            }
+
+            foreach (DatImage image in this.ImagesList.SelectedItems)
+            {
+                image.OffsetX = offsetX;
+            }
+
+            var selectedItems = this.ImagesList.SelectedItems.Cast<DatImage>().ToList();
+            this.ImagesList.Items.Refresh();
+            selectedItems.ForEach(t => this.ImagesList.SelectedItems.Add(t));
+        }
+
+        private void OffsetY_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textbox = (TextBox)sender;
+
+            if (!int.TryParse(textbox.Text, NumberStyles.Integer, CultureInfo.InvariantCulture, out int offsetY))
+            {
+                return;
+            }
+
+            foreach (DatImage image in this.ImagesList.SelectedItems)
+            {
+                image.OffsetY = offsetY;
+            }
+
+            var selectedItems = this.ImagesList.SelectedItems.Cast<DatImage>().ToList();
+            this.ImagesList.Items.Refresh();
+            selectedItems.ForEach(t => this.ImagesList.SelectedItems.Add(t));
         }
     }
 }
