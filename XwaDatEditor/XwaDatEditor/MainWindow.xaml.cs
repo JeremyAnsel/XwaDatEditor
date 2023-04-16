@@ -23,6 +23,13 @@ namespace XwaDatEditor
 
             this.DataContext = this;
             this.ExecuteNew(null, null);
+
+            string[] args = Environment.GetCommandLineArgs();
+
+            if (args.Length > 1)
+            {
+                this.OpenFile(args[1]);
+            }
         }
 
         private static readonly DependencyProperty DatFileProperty = DependencyProperty.Register("DatFile", typeof(DatFile), typeof(MainWindow));
@@ -124,6 +131,11 @@ namespace XwaDatEditor
                 return;
             }
 
+            this.OpenFile(fileName);
+        }
+
+        private void OpenFile(string fileName)
+        {
             this.RunBusyAction(disp =>
                 {
                     try
