@@ -844,9 +844,18 @@ namespace XwaDatEditor
 
             this.RunBusyAction(disp =>
                 {
-                    foreach (DatImage img in images)
+                    if (images.Count == 1)
                     {
-                        img.Save(directory + '\\' + img.GroupId + "-" + img.ImageId + extension);
+                        image.Save(fileName);
+                    }
+                    else
+                    {
+                        string name = System.IO.Path.GetFileNameWithoutExtension(fileName);
+
+                        foreach (DatImage img in images)
+                        {
+                            img.Save(directory + '\\' + name + "-" + img.GroupId + "-" + img.ImageId + extension);
+                        }
                     }
                 });
         }
