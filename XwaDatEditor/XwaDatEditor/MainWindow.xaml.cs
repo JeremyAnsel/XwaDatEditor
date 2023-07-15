@@ -389,6 +389,18 @@ namespace XwaDatEditor
             });
         }
 
+        private void ConvertAllImageBc7_Click(object sender, RoutedEventArgs e)
+        {
+            DatFile dat = this.DatFile;
+
+            this.RunBusyAction(disp =>
+            {
+                dat.ConvertToFormatBc7();
+
+                disp(() => this.UpdateDatFile());
+            });
+        }
+
         private void DeleteGroup_Click(object sender, RoutedEventArgs e)
         {
             var dat = this.DatFile;
@@ -674,6 +686,26 @@ namespace XwaDatEditor
                 .Cast<DatImage>()
                 .AsParallel()
                 .ForAll(image => image.ConvertToFormat25Compressed());
+
+                disp(() => this.UpdateDatFile());
+            });
+        }
+
+        private void ConvertImageBc7_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ImagesList.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            var images = this.ImagesList.SelectedItems;
+
+            this.RunBusyAction(disp =>
+            {
+                images
+                .Cast<DatImage>()
+                .AsParallel()
+                .ForAll(image => image.ConvertToFormatBc7());
 
                 disp(() => this.UpdateDatFile());
             });

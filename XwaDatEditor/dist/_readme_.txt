@@ -27,3 +27,7 @@ Use: in-flight.
 - Format 25 C:
 Format: 32-bit ARGB compressed with the LZMA algorithm.
 Use: in-flight.
+
+- Format BC7:
+Format: BC7 ARGB texture compressed format
+Use: in-flight.

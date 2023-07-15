@@ -5,7 +5,7 @@
         xmlns:local="clr-namespace:XwaDatEditor"
         Title="{Binding DatFile.FileName, StringFormat='Xwa Dat Editor {0}'}"
         Height="500"
-        Width="850"
+        Width="900"
         UseLayoutRounding="True">
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.New"
@@ -30,7 +30,7 @@
             </ToolBar>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="190" />
+                    <ColumnDefinition Width="200" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="330" />
                     <ColumnDefinition Width="Auto" />
@@ -78,6 +78,7 @@
                             <Button Click="ConvertAllImage24_Click" ToolTip="Format: 8-bit indexed colors and 8-bit alpha.&#x0a;Use: in-flight.">24</Button>
                             <Button Click="ConvertAllImage25_Click" ToolTip="Format: 32-bit ARGB.&#x0a;Use: in-flight.">25</Button>
                             <Button Click="ConvertAllImage25C_Click" ToolTip="Format: 32-bit ARGB, LZMA compressed.&#x0a;Use: in-flight.">25C</Button>
+                            <Button Click="ConvertAllImageBc7_Click" ToolTip="Format: BC7 ARGB.&#x0a;Use: in-flight.">BC7</Button>
                         </ToolBar>
                         <ToolBar Band="3"
                                  BandIndex="0"
@@ -139,6 +140,14 @@
                             <MenuItem Header="Convert to Type 25"
                                       ToolTip="Format: 32-bit ARGB.&#x0a;Use: in-flight."
                                       Click="ConvertImage25_Click"
+                                      IsEnabled="{Binding HasItems, Source={x:Reference ImagesList}}" />
+                            <MenuItem Header="Convert to Type 25C"
+                                      ToolTip="Format: 32-bit ARGB, LZMA compressed.&#x0a;Use: in-flight."
+                                      Click="ConvertImage25C_Click"
+                                      IsEnabled="{Binding HasItems, Source={x:Reference ImagesList}}" />
+                            <MenuItem Header="Convert to Type BC7"
+                                      ToolTip="Format: BC7 ARGB.&#x0a;Use: in-flight."
+                                      Click="ConvertImageBc7_Click"
                                       IsEnabled="{Binding HasItems, Source={x:Reference ImagesList}}" />
                             <MenuItem Header="Save As..."
                                       Click="SaveImage_Click"
@@ -209,6 +218,7 @@
                             <Button Click="ConvertImage24_Click" ToolTip="Format: 8-bit indexed colors and 8-bit alpha.&#x0a;Use: in-flight.">24</Button>
                             <Button Click="ConvertImage25_Click" ToolTip="Format: 32-bit ARGB.&#x0a;Use: in-flight.">25</Button>
                             <Button Click="ConvertImage25C_Click" ToolTip="Format: 32-bit ARGB, LZMA compressed.&#x0a;Use: in-flight.">25C</Button>
+                            <Button Click="ConvertImageBc7_Click" ToolTip="Format: BC7 ARGB.&#x0a;Use: in-flight.">BC7</Button>
                         </ToolBar>
                     </ToolBarTray>
                     <Grid DockPanel.Dock="Bottom">
