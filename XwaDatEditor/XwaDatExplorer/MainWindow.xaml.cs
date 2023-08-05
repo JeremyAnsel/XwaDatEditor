@@ -76,6 +76,7 @@ namespace XwaDatExplorer
                     try
                     {
                         var datFiles = System.IO.Directory.EnumerateFiles(directory, "*.DAT")
+                            .Where(t => t.EndsWith(".DAT", StringComparison.OrdinalIgnoreCase))
                             .Select(file => DatFile.FromFile(file))
                             .ToDictionary(
                             t => System.IO.Path.GetFileNameWithoutExtension(t.FileName).ToUpperInvariant(),
