@@ -329,6 +329,41 @@ namespace XwaDatEditor
             });
         }
 
+        private void FlipGroup_Click(object sender, RoutedEventArgs e)
+        {
+            var dat = this.DatFile;
+
+            if (dat == null)
+            {
+                return;
+            }
+
+            var groups = this.GroupsList.SelectedItems.Cast<DatGroup>().ToList();
+            var images = this.ImagesList.SelectedItems.Cast<DatImage>().ToList();
+
+            this.RunBusyAction(disp =>
+            {
+                groups.AsParallel().ForAll(group => group.FlipUpsideDown());
+
+                disp(() =>
+                {
+                    this.GroupsList.SelectedItems.Clear();
+
+                    foreach (var group in groups)
+                    {
+                        this.GroupsList.SelectedItems.Add(group);
+                    }
+
+                    this.ImagesList.SelectedItems.Clear();
+
+                    foreach (var image in images)
+                    {
+                        this.ImagesList.SelectedItems.Add(image);
+                    }
+                });
+            });
+        }
+
         private void ConvertAllImage7_Click(object sender, RoutedEventArgs e)
         {
             DatFile dat = this.DatFile;
@@ -814,6 +849,40 @@ namespace XwaDatEditor
 
                 disp(() => this.ImagesList.SelectedIndex = -1);
                 disp(() => this.DatFile = dat);
+            });
+        }
+
+        private void FlipImage_Click(object sender, RoutedEventArgs e)
+        {
+            var dat = this.DatFile;
+
+            if (dat == null)
+            {
+                return;
+            }
+
+            var group = this.GroupsList.SelectedItem as DatGroup;
+
+            if (group == null)
+            {
+                return;
+            }
+
+            var images = this.ImagesList.SelectedItems.Cast<DatImage>().ToList();
+
+            this.RunBusyAction(disp =>
+            {
+                images.AsParallel().ForAll(image => image.FlipUpsideDown());
+
+                disp(() =>
+                {
+                    this.ImagesList.SelectedItems.Clear();
+
+                    foreach (var image in images)
+                    {
+                        this.ImagesList.SelectedItems.Add(image);
+                    }
+                });
             });
         }
 

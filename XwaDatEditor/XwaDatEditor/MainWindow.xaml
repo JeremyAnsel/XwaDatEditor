@@ -68,6 +68,7 @@
                             <Button Click="UpGroup_Click">Up</Button>
                             <Button Click="DownGroup_Click">Down</Button>
                             <Button Click="SortGroup_Click">Sort</Button>
+                            <Button Click="FlipGroup_Click">Flip</Button>
                         </ToolBar>
                         <ToolBar Band="2"
                                  BandIndex="0"
@@ -201,6 +202,7 @@
                             <Button Click="UpImage_Click">Up</Button>
                             <Button Click="DownImage_Click">Down</Button>
                             <Button Click="SortImage_Click">Sort</Button>
+                            <Button Click="FlipImage_Click">Flip</Button>
                         </ToolBar>
                         <ToolBar Band="3"
                                  BandIndex="0"
