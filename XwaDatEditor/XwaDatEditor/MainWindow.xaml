@@ -83,7 +83,6 @@
                         <ToolBar Band="3"
                                  BandIndex="0"
                                  IsEnabled="{Binding ElementName=GroupsList, Path=HasItems}">
-                            <TextBlock Text="Convert all:" />
                             <Button Click="ConvertAllImageBc3_Click" ToolTip="Format: BC3 ARGB.&#x0a;Use: concourse.">BC3</Button>
                             <Button Click="ConvertAllImageBc5_Click" ToolTip="Format: BC5 ARGB.&#x0a;Use: in-flight.">BC5</Button>
                             <Button Click="ConvertAllImageBc7_Click" ToolTip="Format: BC7 ARGB.&#x0a;Use: in-flight.">BC7</Button>
