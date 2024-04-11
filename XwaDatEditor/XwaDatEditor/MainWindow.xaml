@@ -79,9 +79,16 @@
                             <Button Click="ConvertAllImage24_Click" ToolTip="Format: 8-bit indexed colors and 8-bit alpha.&#x0a;Use: in-flight.">24</Button>
                             <Button Click="ConvertAllImage25_Click" ToolTip="Format: 32-bit ARGB.&#x0a;Use: in-flight.">25</Button>
                             <Button Click="ConvertAllImage25C_Click" ToolTip="Format: 32-bit ARGB, LZMA compressed.&#x0a;Use: in-flight.">25C</Button>
-                            <Button Click="ConvertAllImageBc7_Click" ToolTip="Format: BC7 ARGB.&#x0a;Use: in-flight.">BC7</Button>
                         </ToolBar>
                         <ToolBar Band="3"
+                                 BandIndex="0"
+                                 IsEnabled="{Binding ElementName=GroupsList, Path=HasItems}">
+                            <TextBlock Text="Convert all:" />
+                            <Button Click="ConvertAllImageBc3_Click" ToolTip="Format: BC3 ARGB.&#x0a;Use: concourse.">BC3</Button>
+                            <Button Click="ConvertAllImageBc5_Click" ToolTip="Format: BC5 ARGB.&#x0a;Use: in-flight.">BC5</Button>
+                            <Button Click="ConvertAllImageBc7_Click" ToolTip="Format: BC7 ARGB.&#x0a;Use: in-flight.">BC7</Button>
+                        </ToolBar>
+                        <ToolBar Band="4"
                                  BandIndex="0"
                                  IsEnabled="{Binding ElementName=GroupsList, Path=HasItems}">
                             <Button Click="DeleteGroup_Click">Delete</Button>
@@ -220,6 +227,8 @@
                             <Button Click="ConvertImage24_Click" ToolTip="Format: 8-bit indexed colors and 8-bit alpha.&#x0a;Use: in-flight.">24</Button>
                             <Button Click="ConvertImage25_Click" ToolTip="Format: 32-bit ARGB.&#x0a;Use: in-flight.">25</Button>
                             <Button Click="ConvertImage25C_Click" ToolTip="Format: 32-bit ARGB, LZMA compressed.&#x0a;Use: in-flight.">25C</Button>
+                            <Button Click="ConvertImageBc3_Click" ToolTip="Format: BC3 ARGB.&#x0a;Use: concourse.">BC3</Button>
+                            <Button Click="ConvertImageBc5_Click" ToolTip="Format: BC5 ARGB.&#x0a;Use: in-flight.">BC5</Button>
                             <Button Click="ConvertImageBc7_Click" ToolTip="Format: BC7 ARGB.&#x0a;Use: in-flight.">BC7</Button>
                         </ToolBar>
                     </ToolBarTray>
