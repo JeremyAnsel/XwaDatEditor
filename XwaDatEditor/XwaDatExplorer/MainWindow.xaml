@@ -4,8 +4,8 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:XwaDatExplorer"
         Title="Xwa Dat Explorer"
-        Height="500"
-        Width="800"
+        Height="600"
+        Width="1000"
         UseLayoutRounding="True">
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Open"
@@ -23,7 +23,7 @@
             </ToolBar>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="3*" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="Auto" />

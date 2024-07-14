@@ -4,8 +4,8 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:XwaDatEditor"
         Title="{Binding DatFile.FileName, StringFormat='Xwa Dat Editor {0}'}"
-        Height="500"
-        Width="900"
+        Height="600"
+        Width="1100"
         UseLayoutRounding="True">
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.New"
@@ -36,7 +36,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="200" />
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="330" />
+                    <ColumnDefinition Width="350" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
@@ -283,7 +283,7 @@
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="#"
-                                        Width="25">
+                                        Width="35">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock>
@@ -299,7 +299,7 @@
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Header="Id"
-                                                Width="70">
+                                                Width="85">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
