@@ -314,7 +314,7 @@
                                                 Width="80"
                                                 DisplayMemberBinding="{Binding Format}" />
                                 <GridViewColumn Header="Size"
-                                                Width="60">
+                                                Width="85">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
@@ -326,7 +326,7 @@
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Header="Offset"
-                                                Width="50">
+                                                Width="55">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
